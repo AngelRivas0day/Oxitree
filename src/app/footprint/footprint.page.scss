@@ -1,0 +1,85 @@
+ion-header{
+    position: absolute;
+    z-index: 700;
+    width: 100%;
+    height: 44px;
+}
+
+ion-toolbar {
+    --background: transparent;
+    --ion-color-base: transparent !important;
+    --opacit: 0;
+    --border-width: 0px !important;
+    ion-menu-button{
+        color: white;
+    }
+    ion-buttons{
+        ion-button{
+            ion-label{
+                color: rgb(1, 105, 241);
+            }
+        }
+    }
+}
+
+.main-grid{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-image: 
+    linear-gradient(rgba(0,0,0,.2), rgba(0,0,0,.2)), 
+    url('src/assets/images/marcin-jozwiak-uKvPDQop-JA-unsplash.jpg');
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    .header-row{
+        height: 18vH;
+        position: relative;
+        z-index: 500;
+        ion-col{
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            flex-direction: column;
+            padding: 0 15px;
+            h1,h2{
+                position: relative;
+                z-index: 800;
+                transform: translateZ(100px);
+            }
+            h1{
+                padding: 0;
+                margin: 0 0 10px;
+                color: white;
+            }
+            h4{
+                padding: 0;
+                margin: 0 0 20px 0;
+                font-size: 14px;
+                opacity: .7;
+                color: white;
+            }
+        }
+    }
+    .content-row{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 15;
+        overflow-y: auto;
+        background-color: var(--main-color);
+        border-top-left-radius: 40px;
+        border-top-right-radius: 40px;
+        max-height: calc(82vH);
+        min-height: calc(82vH);
+        box-shadow: 0px 40px 88px 84px rgb(0,0,0);
+        width: 100%;
+    }
+    ion-col{
+        padding: 0;
+    }
+    ion-card{
+        border-radius: 30px;
+    }
+}
+

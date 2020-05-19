@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-grid class="main-grid">
+    <ion-row class="header-row">
+      <ion-col>
+        <h1>Login</h1>
+        <h4>accede a tu información</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row class="content-row">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+              <img src="https://via.placeholder.com/150" alt="">
+              <ion-item class='ion-item--input' lines="none">
+                <ion-label>Email</ion-label>
+                <ion-input formControlName="email"></ion-input>
+              </ion-item>
+              <ion-item class='ion-item--input' lines="none">
+                <ion-label>Password</ion-label>
+                <ion-input type="password" formControlName="password"></ion-input>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-button type="submit" [disabled]="!loginForm.valid">Inicar sesión</ion-button>
+              </ion-item>
+            </form>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-row>
+  </ion-grid>
+</ion-content>

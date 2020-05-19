@@ -1,0 +1,7 @@
+{
+  "name": "oxi-tree",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

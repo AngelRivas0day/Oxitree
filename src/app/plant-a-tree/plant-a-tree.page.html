@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="stepBack()">
+        <ion-label>Atrás</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-grid class="main-grid">
+    <ion-row class="header-row">
+      <ion-col>
+        <h1>Planta un arbol</h1>
+        <h4>Rellena los datos ({{actualStep}}/4)</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row class="content-row">
+      <ion-col>
+
+        <ng-container [ngSwitch]="actualStep">
+          <ion-grid class="step-1" *ngSwitchCase="1">
+            <ion-row>
+              <ion-col>
+                <p class='first-step--label'>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Excepturi enim eius sunt dolorem minima quibusdam.
+                </p>
+                <ion-item class="ion-item--input" lines="none">
+                  <ion-label>Selecciona tu estado</ion-label>
+                  <ion-select>
+                    <ion-select-option *ngFor="let state of states" [value]="state.name">{{state.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <ion-item class="ion-item--input" lines="none">
+                  <ion-label>Selecciona tu region</ion-label>
+                  <ion-select>
+                    <ion-select-option *ngFor="let region of regions" [value]="region.name">{{region.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <ion-item class="ion-item--input" lines="none">
+                  <ion-label>Selecciona un tamaño</ion-label>
+                  <ion-select>
+                    <ion-select-option *ngFor="let size of sizes" [value]="size.name">{{size.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <ion-button class="first-step--button" (click)="nextStep()">Buscar</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-grid class="step-2" *ngSwitchCase="2">
+            <ion-row>
+              <ion-col>
+                <ion-card (click)="openTree(tree)" *ngFor="let tree of trees">
+                  <img [src]="tree.src"/>
+                  <ion-card-header>
+                    <ion-card-subtitle>{{tree.name}}</ion-card-subtitle>
+                    <ion-card-title>{{tree.fullName}}</ion-card-title>
+                  </ion-card-header>
+                
+                  <ion-card-content>
+                    {{tree.rate}}
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-grid class='step-3' *ngSwitchCase="3">
+            <ion-row>
+              <ion-col>
+                <img [src]="currentTree.src" alt="">
+                <ion-item lines="none">
+                  <ion-label>
+                    {{currentTree.name}}
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-grid class='step-4' *ngSwitchCase="4">
+            <ion-row>
+              <ion-col>
+                <ion-item lines="none">
+                  Puedes recoger tu arbolito en las siguientes ubicaciones
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ng-container>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

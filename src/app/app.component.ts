@@ -3,6 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { ApiService } from './shared/services/api/api.service';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-root',
@@ -39,12 +43,14 @@ export class AppComponent implements OnInit {
     }
   ];
 
-  loggedIn: boolean = true;
+  loggedIn$: Observable<any>;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private apiService: ApiService,
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -61,9 +67,18 @@ export class AppComponent implements OnInit {
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
+    // this.apiService.isLoggedIn.subscribe((data:any)=>{
+    //   this.loggedIn = data;
+    //   console.log("DATA:", data);
+    // });
+    this.loggedIn$ = this.apiService._auth;
   }
 
   logOut(){
-    this.loggedIn = false;
+    this.apiService.logout();
+    setTimeout(()=>{
+      this.router.navigateByUrl('/login');
+    },750);
   }
+
 }

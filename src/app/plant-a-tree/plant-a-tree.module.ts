@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PlantATreePageRoutingModule } from './plant-a-tree-routing.module';
 
 import { PlantATreePage } from './plant-a-tree.page';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PlantATreePageRoutingModule
+    PlantATreePageRoutingModule,
+    HttpClientModule
   ],
   declarations: [PlantATreePage]
 })

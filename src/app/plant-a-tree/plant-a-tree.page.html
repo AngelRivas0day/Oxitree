@@ -12,17 +12,26 @@
 </ion-header>
 
 <ion-content fullscreen>
-  <ion-grid class="main-grid">
-    <ion-row class="header-row">
-      <ion-col>
-        <h1>Planta un arbol</h1>
-        <h4>Rellena los datos ({{actualStep}}/4)</h4>
-      </ion-col>
+  <ion-grid [class.sliderStepGrid]="actualStepIndex == 2" class="main-grid">
+    <ion-row [class.sliderStepHeader]="actualStepIndex == 2" class="header-row">
+      <ng-container *ngIf="actualStepIndex == 2; else elseTemplate">
+        <ion-slides [class.active]="actualStepIndex == 2" #slides pager="true" [options]="slideOpts">
+          <ion-slide *ngFor="let tree of trees">
+            <img [src]="tree.src" alt=""/>
+          </ion-slide>
+        </ion-slides>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <ion-col>
+          <h1>Planta un arbol</h1>
+          <h4>{{actualStep.name}} ({{actualStep.id}}/4)</h4>
+        </ion-col>
+      </ng-template>
     </ion-row>
-    <ion-row class="content-row">
+    <ion-row [class.sliderStepContent]="actualStepIndex == 2" class="content-row">
       <ion-col>
 
-        <ng-container [ngSwitch]="actualStep">
+        <ng-container [ngSwitch]="actualStepIndex">
           <ion-grid class="step-1" *ngSwitchCase="1">
             <ion-row>
               <ion-col>
@@ -48,24 +57,42 @@
                     <ion-select-option *ngFor="let size of sizes" [value]="size.name">{{size.name}}</ion-select-option>
                   </ion-select>
                 </ion-item>
-                <ion-button class="first-step--button" (click)="nextStep()">Buscar</ion-button>
+                <ion-button class="first-step--button" (click)="setTree()">Buscar</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
           <ion-grid class="step-2" *ngSwitchCase="2">
-            <ion-row>
+            <ion-row *ngIf="currentTree">
+              <ion-col class="step-2__info">
+                <ion-item class="step-2__info--main" lines="none">
+                  {{currentTree.name}}
+                </ion-item>
+                <ion-item class="step-2__info--full" lines="none">
+                  {{currentTree.fullName}}
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row class="step-2__controls">
               <ion-col>
-                <ion-card (click)="openTree(tree)" *ngFor="let tree of trees">
-                  <img [src]="tree.src"/>
-                  <ion-card-header>
-                    <ion-card-subtitle>{{tree.name}}</ion-card-subtitle>
-                    <ion-card-title>{{tree.fullName}}</ion-card-title>
-                  </ion-card-header>
-                
-                  <ion-card-content>
-                    {{tree.rate}}
-                  </ion-card-content>
-                </ion-card>
+                <ion-icon (click)="prev()" name="arrow-back-outline"></ion-icon>
+              </ion-col>
+              <ion-col>
+                {{ (currentTreeIndex + 1) + " / " + (trees.length)}}
+              </ion-col>
+              <ion-col>
+                <ion-icon (click)="next()" name="arrow-forward-outline"></ion-icon>
+              </ion-col>
+            </ion-row>
+            <ion-row class="step-2__actions">
+              <ion-col>
+                <ion-button (click)="stepBack()">
+                  Volver
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button (click)="nextStep()">
+                  Seleccionar
+                </ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -78,6 +105,14 @@
                     {{currentTree.name}}
                   </ion-label>
                 </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-button (click)="stepBack()">Volver</ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button (click)="nextStep()">Continuar</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>

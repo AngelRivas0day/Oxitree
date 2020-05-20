@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonSlides } from '@ionic/angular';
+import { ProvApiService } from '../shared/services/prov-api.service';
 
 @Component({
   selector: 'app-plant-a-tree',
@@ -7,189 +9,103 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlantATreePage implements OnInit {
 
-  steps: number = 4;
-  actualStep: number = 1;
-  currentTree: any;
-  sizes: any[] = [
-    {
-      name: "Muy Chico",
-      mts: "5.6"
-    },
-    {
-      name: "Chico",
-      mts: "5.6"
-    },
-    {
-      name: "Mediano",
-      mts: "5.6"
-    },
-    {
-      name: "Grande",
-      mts: "5.6"
-    },
-    {
-      name: "Muy Grande",
-      mts: "5.6"
-    }
-  ];
+  @ViewChild('slides') slides: IonSlides;
 
-  states: any[] = [
-    {
-      name: "Jalisco"
-    },
-    {
-      name: "Rio Grande du Sol - BR"
+  next(){
+    if(this.currentTreeIndex < this.trees.length-1){
+      this.slides.slideNext();
+      this.currentTreeIndex += 1;
+      this.currentTree = this.trees[this.currentTreeIndex];
     }
-  ];
+  }
 
-  regions: any[] = [
-    {
-      name: "Centro",
-      climates: [
-        {
-          name: "test",
-          degress: "35"
-        }
-      ]
-    },
-    {
-      name: "Altos Norte",
-      climates: [
-        {
-          name: "test",
-          degress: "35"
-        }
-      ]
-    },
-    {
-      name: "Altos Sur",
-      climates: [
-        {
-          name: "test",
-          degress: "35"
-        }
-      ]
-    },
-    {
-      name: "Costa Sur",
-      climates: [
-        {
-          name: "test",
-          degress: "35"
-        }
-      ]
-    },
-    {
-      name: "Lagunas",
-      climates: [
-        {
-          name: "test",
-          degress: "35"
-        }
-      ]
-    },
-    {
-      name: "Norte",
-      climates: [
-        {
-          name: "test",
-          degress: "35"
-        }
-      ]
-    },
-    {
-      name: "Sierra de Amula",
-      climates: [
-        {
-          name: "test",
-          degress: "35"
-        }
-      ]
-    },
-    {
-      name: "Sierra Occidental",
-      climates: [
-        {
-          name: "test",
-          degress: "35"
-        }
-      ]
-    },
-    {
-      name: "Sur",
-      climates: [
-        {
-          name: "test",
-          degress: "35"
-        }
-      ]
-    },
-    {
-      name: "Sureste",
-      climates: [
-        {
-          name: "test",
-          degress: "35"
-        }
-      ]
-    },
-    {
-      name: "Valles",
-      climates: [
-        {
-          name: "test",
-          degress: "35"
-        }
-      ]
+  prev(){
+    if(this.currentTreeIndex > 0){
+      this.slides.slidePrev();
+      this.currentTreeIndex -= 1;
+      this.currentTree = this.trees[this.currentTreeIndex];
     }
-  ];
+  }
 
-  trees: any[] = [
+  currentTreeIndex: number = 0;
+
+  steps: any[] = [
     {
       id: 1,
-      src: '../assets/images/jacarandas.jpg',
-      name: 'Jacaranda',
-      fullName: 'Jacaranda Lorem',
-      rate: '3 / 4'
+      name: 'Rellena los datos'
     },
     {
       id: 2,
-      src: '../assets/images/jacarandas.jpg',
-      name: 'Jacaranda',
-      fullName: 'Jacaranda Lorem',
-      rate: '3 / 4'
+      name: 'Selecciona un arbol'
     },
     {
       id: 3,
-      src: '../assets/images/jacarandas.jpg',
-      name: 'Jacaranda',
-      fullName: 'Jacaranda Lorem',
-      rate: '3 / 4'
+      name: 'Detalles'
     },
+    {
+      id: 4,
+      name: 'Manos a la obra'
+    }
   ];
+  actualStep: any;
+  actualStepIndex: number = 1;
+  currentTree: any;
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400,
+  };
 
-  constructor() { }
+  sizes: any[];
+
+  states: any[];
+
+  regions: any[];
+
+  trees: any[];
+
+  constructor(
+    private apiService: ProvApiService
+  ) {
+    this.actualStep = this.steps[this.actualStepIndex-1];
+    this.sizes = this.apiService.sizes;
+    this.states = this.apiService.states;
+    this.regions = this.apiService.regions;
+    this.trees = this.apiService.trees;
+   }
 
   ngOnInit() {
   }
 
   ionViewDidEnter(){
-    this.actualStep = 1;
+    this.actualStepIndex = 1;
+    this.actualStep = this.steps[this.actualStepIndex-1];
+    this.currentTreeIndex = 0;
   }
 
   nextStep(){
-    this.actualStep += 1;
+    this.actualStepIndex += 1;
+    this.actualStep = this.steps[this.actualStepIndex-1];
   }
 
   stepBack(){
-    if(this.actualStep > 1){
-      this.actualStep -= 1;
+    if(this.actualStepIndex > 0){
+      this.actualStepIndex -= 1;
+      this.actualStep = this.steps[this.actualStepIndex-1];
     }
+  }
+
+  setTree(){
+    this.currentTree = this.trees[0];
+    this.nextStep();
   }
 
   openTree(tree:any){
     this.currentTree = tree;
     this.nextStep();
+  }
+
+  onSubmit(){
+    
   }
 
 }

@@ -21,6 +21,10 @@
             <form (ngSubmit)="onSubmit()" [formGroup]="form">
               <img src="https://via.placeholder.com/150" alt="">
               <ion-item class='ion-item--input' lines="none">
+                <ion-label>Name</ion-label>
+                <ion-input formControlName="name"></ion-input>
+              </ion-item>
+              <ion-item class='ion-item--input' lines="none">
                 <ion-label>Email</ion-label>
                 <ion-input formControlName="email"></ion-input>
               </ion-item>

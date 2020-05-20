@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
+import { ApiService } from '../shared/services/api/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +16,8 @@ export class LoginPage {
   constructor(
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
+    private apiService: ApiService,
+    private router: Router,
   )  { 
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', Validators.compose([
@@ -29,6 +33,12 @@ export class LoginPage {
 
   onSubmit(){
     console.log(this.loginForm.value);
+    this.apiService.login(this.loginForm.value);
+    setTimeout(()=>{
+      if(localStorage.getItem('access_token')){
+        this.router.navigateByUrl('/dashboard');
+      }
+    },1000);
   }
 
   goToRegister(){

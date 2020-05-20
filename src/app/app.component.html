@@ -5,7 +5,7 @@
         <ion-list>
           <ion-list-header>
             <div class="ion-list-header--container">
-              <ng-container *ngIf="loggedIn; else elseTemplate">
+              <ng-container *ngIf="(loggedIn$ | async); else elseTemplate">
                 <img src="https://via.placeholder.com/150" alt="">
                 <div class="ion-list-header--title">
                   <ion-menu-toggle>
@@ -35,7 +35,7 @@
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <ion-menu-toggle *ngIf="loggedIn" auto-hide="false">
+          <ion-menu-toggle *ngIf="(loggedIn$ | async)" auto-hide="false">
             <ion-item (click)="logOut()" lines="none" detail="false">
               <ion-icon slot="start" [ios]="'log-out-outline'" [md]="'log-out-sharp'"></ion-icon>
               <ion-label>Log out</ion-label>

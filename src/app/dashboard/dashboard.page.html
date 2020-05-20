@@ -18,16 +18,30 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-card>
-              <ion-card-header>
-                <ion-card-subtitle>Inicia sesión</ion-card-subtitle>
-                <ion-card-title>descubre los beneficios</ion-card-title>
-              </ion-card-header>
-            
-              <ion-card-content>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio, dolorum.
-              </ion-card-content>
-            </ion-card>
+            <ng-container *ngIf="!(loggedIn$ | async); else elseTemplate">
+              <ion-card>
+                <ion-card-header>
+                  <ion-card-subtitle>Inicia sesión</ion-card-subtitle>
+                  <ion-card-title>descubre los beneficios</ion-card-title>
+                </ion-card-header>
+              
+                <ion-card-content>
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio, dolorum.
+                </ion-card-content>
+              </ion-card>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <ion-card>
+                <ion-card-header>
+                  <ion-card-subtitle>Lleva un historial de tu arbol</ion-card-subtitle>
+                  <ion-card-title>y obten premios</ion-card-title>
+                </ion-card-header>
+              
+                <ion-card-content>
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio, dolorum.
+                </ion-card-content>
+              </ion-card>
+            </ng-template>
           </ion-col>
         </ion-row>
         <ion-row>

@@ -176,3 +176,10 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+
+
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+}

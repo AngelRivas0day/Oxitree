@@ -17,7 +17,7 @@
       <ng-container *ngIf="actualStepIndex == 2; else elseTemplate">
         <ion-slides [class.active]="actualStepIndex == 2" #slides pager="true" [options]="slideOpts">
           <ion-slide *ngFor="let tree of trees">
-            <img [src]="tree.src" alt=""/>
+            <img [src]="tree.image" alt=""/>
           </ion-slide>
         </ion-slides>
       </ng-container>
@@ -35,29 +35,36 @@
           <ion-grid class="step-1" *ngSwitchCase="1">
             <ion-row>
               <ion-col>
-                <p class='first-step--label'>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                  <p class='first-step--label'>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Excepturi enim eius sunt dolorem minima quibusdam.
-                </p>
-                <ion-item class="ion-item--input" lines="none">
-                  <ion-label>Selecciona tu estado</ion-label>
-                  <ion-select>
-                    <ion-select-option *ngFor="let state of states" [value]="state.name">{{state.name}}</ion-select-option>
-                  </ion-select>
-                </ion-item>
-                <ion-item class="ion-item--input" lines="none">
-                  <ion-label>Selecciona tu region</ion-label>
-                  <ion-select>
-                    <ion-select-option *ngFor="let region of regions" [value]="region.name">{{region.name}}</ion-select-option>
-                  </ion-select>
-                </ion-item>
-                <ion-item class="ion-item--input" lines="none">
-                  <ion-label>Selecciona un tamaño</ion-label>
-                  <ion-select>
-                    <ion-select-option *ngFor="let size of sizes" [value]="size.name">{{size.name}}</ion-select-option>
-                  </ion-select>
-                </ion-item>
-                <ion-button class="first-step--button" (click)="setTree()">Buscar</ion-button>
+                  </p>
+                  <ion-item class="ion-item--input" lines="none">
+                    <ion-label>Selecciona tu estado</ion-label>
+                    <ion-select (ionChange)="handleStateChange($event)" formControlName="state">
+                      <ion-select-option *ngFor="let state of states" [value]="state">{{state}}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                  <ion-item class="ion-item--input" lines="none">
+                    <ion-label>Selecciona tu region</ion-label>
+                    <ion-select (ionChange)="handleRegionChange($event)" formControlName="region">
+                      <ng-container *ngIf="regions.length; else elseTemplate">
+                        <ion-select-option *ngFor="let region of regions" [value]="region">{{region}}</ion-select-option>
+                      </ng-container>
+                      <ng-template #elseTemplate>
+                        <ion-select-option>Selecciona un estado</ion-select-option>
+                      </ng-template>                      
+                    </ion-select>
+                  </ion-item>
+                  <ion-item class="ion-item--input" lines="none">
+                    <ion-label>Selecciona un tamaño</ion-label>
+                    <ion-select formControlName="size">
+                      <ion-select-option *ngFor="let size of sizes" [value]="size.value">{{size.name}}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                  <ion-button type="submit" [disabled]="!form.valid" class="first-step--button">Buscar</ion-button>
+                </form>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -68,7 +75,7 @@
                   {{currentTree.name}}
                 </ion-item>
                 <ion-item class="step-2__info--full" lines="none">
-                  {{currentTree.fullName}}
+                  {{currentTree.spicies}}
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -99,7 +106,7 @@
           <ion-grid class='step-3' *ngSwitchCase="3">
             <ion-row>
               <ion-col>
-                <img [src]="currentTree.src" alt="">
+                <img [src]="currentTree.image" alt="">
                 <ion-item lines="none">
                   <ion-label>
                     {{currentTree.name}}

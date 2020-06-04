@@ -1,0 +1,52 @@
+{
+    "Jalisco": {
+        "regions": {
+            "Centro": {
+                "clima": "Templado"
+            },
+            "Altos Norte": {
+                "clima": "Templado"
+            },
+            "Altos Sur": {
+                "clima": "Templado"
+            },
+            "Costa Sur": {
+                "clima": "Templado"
+            },
+            "Lagunas": {
+                "clima": "Templado"
+            },
+            "Norte": {
+                "clima": "Templado"
+            },
+            "Sierra de Amula": {
+                "clima": "Templado"
+            },
+            "Sierra Occidental": {
+                "clima": "Templado"
+            },
+            "Sur": {
+                "clima": "Templado"
+            },
+            "Sureste": {
+                "clima": "Templado"
+            },
+            "Valles": {
+                "clima": "Templado"
+            }
+        }
+    },
+    "Rio Grande du Sol - BR": {
+        "regions": {
+            "Lorem": {
+                "clima": "TEST"
+            },
+            "Ipsum": {
+                "clima": "TEST"
+            },
+            "Dolor": {
+                "clima": "TEST"
+            }
+        }
+    }
+}

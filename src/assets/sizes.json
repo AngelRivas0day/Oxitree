@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Muy Chico",
+        "value": "muychico",
+        "meters": ".5"
+    },
+    {
+        "name": "Chico",
+        "value": "chico",
+        "meters": "1"
+    },
+    {
+        "name": "Mediano",
+        "value": "mediano",
+        "meters": "1.5"
+    },
+    {
+        "name":"Muy Grande",
+        "value": "grande",
+        "meters": "2"
+    },
+    {
+        "name": "Muy Grande",
+        "value": "muygrande",
+        "meters": "2.5"
+    }
+]

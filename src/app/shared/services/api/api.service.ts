@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class ApiService {
   public isLoggedIn: BehaviorSubject<any>;
   loggedIn: boolean;
 
-  base_url = 'http://localhost:3000';
+  base_url = environment.api_url;
 
   public setHeaders(token){
     return new HttpHeaders({ // some hard coded headers but they work hella fine in here
@@ -110,13 +111,6 @@ export class ApiService {
     });
   }
 
-  fetch( endpoint: string ) {
-    return this.http.get(`${this.base_url}/${endpoint}`, this.options ).pipe(
-      retry(2),
-      this.catchRequestError()
-    );
-  }
-
   getOne( endpoint: string, id: any) {
     return this.http.get(`${this.base_url}/${endpoint}/${id}`, this.options ).pipe(
       retry(2),
@@ -141,21 +135,6 @@ export class ApiService {
     );
   }
 
-  put( endpoint: string, id: any, data: any , token: any) {
-    this.setToken(token);
-    return this.http.put(`${this.base_url}/${endpoint}/${id}`, data, this.options ).pipe(
-      retry(3),
-      this.catchRequestError()
-    );
-  }
-
-  patch( endpoint: string, id: any, data = null ) {
-    return this.http.patch(`${this.base_url}/${endpoint}/${id}`, data, this.options ).pipe(
-      retry(2),
-      this.catchRequestError()
-    );
-  }
-
   delete( endpoint: string, id: any , token: any) {
     this.setToken(token);
     return this.http.delete(`${this.base_url}/${endpoint}/${id}`, this.options ).pipe(
@@ -164,11 +143,15 @@ export class ApiService {
     );
   }
 
-  postDataTables(endpoint: string, DataTableParameters: any){
-    return this.http.post(`${this.base_url}/${endpoint}`, DataTableParameters).pipe(
-      retry(3),
+  getCustomTrees(endpoint: string, params: any[]){
+    let climate = params['climate'];
+    let state = params['state'];
+    let region = params['region'];
+    let size = params['size'];
+    return this.http.get(`${this.base_url}/${endpoint}/${state}/${region}/${climate}/${size}`, this.options).pipe(
+      retry(2),
       this.catchRequestError()
-    )
+    );
   }
 
 }

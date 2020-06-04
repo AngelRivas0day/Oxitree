@@ -7,14 +7,17 @@
 ion-slides{
     transition: ease-out .7s;
     opacity: 0;
+    width: 100%;
     &.active{
         opacity: 1;
     }
     ion-slide{
-        background: red;
+        width: 100%;
+        // background: red;
         img{
             height: 100%;
             object-fit: cover;
+            width: 100%;
         }
     }
 }

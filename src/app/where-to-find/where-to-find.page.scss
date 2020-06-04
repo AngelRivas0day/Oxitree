@@ -3,3 +3,7 @@
 @include main-layout(
   "src/assets/images/bg_trees.jpg"
 );
+
+ion-col{
+    padding: 0;
+}

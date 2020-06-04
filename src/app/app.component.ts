@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
     },
     {
       title: '¿Dónde conseguirlos?',
-      url: '/find-them',
+      url: '/where-to-find',
       icon: 'location'
     },
     {

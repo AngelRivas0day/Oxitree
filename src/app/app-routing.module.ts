@@ -47,6 +47,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule),
+  },
+  {
+    path: 'where-to-find',
+    loadChildren: () => import('./where-to-find/where-to-find.module').then( m => m.WhereToFindPageModule)
   }
 ];
 
